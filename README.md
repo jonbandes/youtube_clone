@@ -48,7 +48,7 @@ git clone https://github.com/yourusername/youtube-clone.git
 cd youtube-clone
 
 # Create virtual environment
-python -m venv venv
+python3 -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 
 # Install dependencies
@@ -59,10 +59,10 @@ cp .env.example .env
 # Edit .env with your settings
 
 # Apply migrations
-python manage.py migrate
+python3 manage.py migrate
 
 # Create superuser
-python manage.py createsuperuser
+python3 manage.py createsuperuser
 
 # Run development server
-python manage.py runserver
+python3 manage.py runserver

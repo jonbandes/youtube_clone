@@ -44,7 +44,7 @@ A feature-rich YouTube clone built with Django that allows users to upload, shar
 ### Setup
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/youtube-clone.git
+git clone git@github.com:jonbandes/youtube_clone.git # (using SSH)
 cd youtube-clone
 
 # Create virtual environment

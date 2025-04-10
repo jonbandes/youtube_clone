@@ -67,3 +67,24 @@ python3 manage.py createsuperuser
 
 # Run development server
 python3 manage.py runserver
+
+Project Structure 📂
+Copy
+youtube-clone/
+├── core/               # Django project settings
+├── users/              # User authentication app
+│   ├── models.py       # Custom user model
+│   ├── forms.py        # Registration forms
+│   └── ...
+├── videos/             # Core functionality app
+│   ├── models.py       # Video & Comment models
+│   ├── views.py        # All business logic
+│   └── ...
+├── templates/          # HTML templates
+├── static/             # Static files
+└── manage.py
+
+API Endpoints 🌐
+Endpoint	            Method	Description
+/video/<id>/like/	    POST	Like a video (AJAX)
+/video/<id>/dislike/	POST	Dislike a video (AJAX)

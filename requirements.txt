@@ -1,0 +1,40 @@
+# Paquetes principales
+Django==4.2.8
+Pillow==10.1.0  # Para manejo de imágenes (profile_picture)
+
+# Base de datos (elige una según tu configuración)
+psycopg2-binary==2.9.9  # Para PostgreSQL
+# mysqlclient==2.2.0  # Para MySQL
+# sqlite3  # Viene con Python (no necesita instalación)
+
+# Paquetes para desarrollo
+python-dotenv==1.0.0  # Para variables de entorno
+django-debug-toolbar==4.2.0  # Debugging
+django-extensions==3.2.3  # Utilidades adicionales
+
+# Seguridad
+django-environ==0.11.2  # Manejo de configuraciones
+whitenoise==6.6.0  # Servir archivos estáticos
+gunicorn==21.2.0  # Servidor producción (si usas Heroku/AWS)
+
+# Procesamiento de videos (opcional)
+youtube-dl==2021.12.17  # Para descargar info de videos
+# moviepy==1.0.3  # Para procesamiento de video (opcional)
+
+# Formularios y UI
+django-crispy-forms==2.1  # Para mejores formularios
+crispy-bootstrap5==2023.10  # Plantillas Bootstrap para crispy-forms
+
+# API REST (si planeas agregar API)
+djangorestframework==3.14.0  # Para construir API
+drf-yasg==1.21.7  # Documentación API
+
+# Testing
+pytest==7.4.3
+pytest-django==4.7.0
+factory-boy==3.3.0
+
+# Linting y calidad de código
+flake8==6.1.0
+black==23.11.0
+isort==5.12.0

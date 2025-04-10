@@ -5,8 +5,6 @@
 
 A feature-rich YouTube clone built with Django that allows users to upload, share, and interact with videos.
 
-![Screenshot](screenshot.png) <!-- Add your screenshot later -->
-
 
 ![alt text](image.png)
 ![alt text](image-1.png)

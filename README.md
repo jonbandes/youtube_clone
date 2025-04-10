@@ -59,6 +59,7 @@ cp .env.example .env
 # Edit .env with your settings
 
 # Apply migrations
+python3 manage.py makemigrations
 python3 manage.py migrate
 
 # Create superuser

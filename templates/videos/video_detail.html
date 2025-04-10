@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <!-- Embedded Video Player -->
+    <div class="ratio ratio-16x9 mb-4">
+        <iframe 
+            src="{{ video.get_embed_url }}" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen
+            title="{{ video.title }}"
+        ></iframe>
+    </div>
+    
+    <!-- Video Metadata -->
+    <h2>{{ video.title }}</h2>
+    <p class="lead">{{ video.description }}</p>
+    
+    <!-- Voting Buttons -->
+    <div class="btn-group mt-3 mb-4">
+        <button onclick="sendVote('like')" class="btn btn-outline-success">
+            <i class="bi bi-hand-thumbs-up"></i> <span id="like-count">{{ video.likes.count }}</span>
+        </button>
+        <button onclick="sendVote('dislike')" class="btn btn-outline-danger">
+            <i class="bi bi-hand-thumbs-down"></i> <span id="dislike-count">{{ video.dislikes.count }}</span>
+        </button>
+    </div>
+    
+    <!-- AJAX Voting Script -->
+    <script>
+    function sendVote(action) {
+        const videoId = {{ video.id }};
+        const url = `/video/${videoId}/${action}/`;
+        
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}',
+                'Accept': 'application/json'
+            },
+            credentials: 'same-origin'
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('like-count').textContent = data.likes;
+            document.getElementById('dislike-count').textContent = data.dislikes;
+        })
+        .catch(error => console.error('Error:', error));
+    }
+    </script>
+    
+    <!-- Comment Form -->
+    {% if user.is_authenticated %}
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">Leave a Comment</h5>
+            <form method="POST" action="{% url 'video-detail' video.id %}">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <textarea 
+                        name="text"
+                        class="form-control"
+                        rows="3"
+                        placeholder="Share your thoughts..."
+                        required
+                    ></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-send"></i> Post Comment
+                </button>
+            </form>
+        </div>
+    </div>
+    {% else %}
+    <div class="alert alert-info">
+        <a href="{% url 'login' %}" class="alert-link">Sign in</a> to comment.
+    </div>
+    {% endif %}
+
+    <!-- Comments Section -->
+    <div class="mt-4">
+        <h4>Comments ({{ video.comments.count }})</h4>
+        {% for comment in comments %}
+        <div class="card mb-2">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <strong>{{ comment.user.username }}</strong>
+                    <small class="text-muted">{{ comment.created_at|date:"M d, Y H:i" }}</small>
+                </div>
+                <p class="mt-2 mb-0">{{ comment.text }}</p>
+            </div>
+        </div>
+        {% empty %}
+        <div class="alert alert-secondary">
+            Be the first to comment!
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

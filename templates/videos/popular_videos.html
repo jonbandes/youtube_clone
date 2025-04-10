@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">{{ title }}</h2>
+    
+    <div class="row">
+        {% for video in videos %}
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card h-100 shadow-sm">
+                <!-- Video Thumbnail with Play Button -->
+                <div class="video-thumbnail position-relative">
+                    <img src="https://img.youtube.com/vi/{{ video.youtube_id }}/mqdefault.jpg" 
+                         class="card-img-top" 
+                         alt="{{ video.title }}"
+                         style="height: 180px; object-fit: cover;">
+                    <div class="play-icon position-absolute top-50 start-50 translate-middle">
+                        <i class="bi bi-play-circle-fill text-white" style="font-size: 3rem;"></i>
+                    </div>
+                    <a href="{% url 'video-detail' video.id %}" class="stretched-link"></a>
+                </div>
+                
+                <div class="card-body">
+                    <h5 class="card-title">{{ video.title|truncatechars:40 }}</h5>
+                    <!-- Engagement Metrics -->
+                    <div class="d-flex justify-content-between">
+                        <span class="badge bg-primary">
+                            <i class="bi bi-hand-thumbs-up"></i> {{ video.likes.count }}
+                        </span>
+                        <span class="badge bg-danger">
+                            <i class="bi bi-hand-thumbs-down"></i> {{ video.dislikes.count }}
+                        </span>
+                        <span class="badge bg-secondary">
+                            <i class="bi bi-chat"></i> {{ video.comments.count }}
+                        </span>
+                    </div>
+                    <div class="mt-2">
+                        <small class="text-muted">
+                            Uploaded {{ video.upload_date|timesince }} ago
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info">
+                No popular videos this month.
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

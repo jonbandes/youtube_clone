@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Recommended Videos</h2>
+    
+    <!-- Upload Button (visible only to authenticated users) -->
+    {% if user.is_authenticated %}
+        <a href="{% url 'video-create' %}" class="btn btn-primary mb-4">
+            <i class="bi bi-upload"></i> Upload Video
+        </a>
+    {% endif %}
+
+    <!-- Video Grid -->
+    <div class="row">
+        {% for video in videos %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <!-- YouTube Embedded Player -->
+                <div class="ratio ratio-16x9">
+                    <iframe 
+                        src="{{ video.get_embed_url }}" 
+                        allowfullscreen
+                        title="{{ video.title }}"
+                    ></iframe>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ video.title }}</h5>
+                    <p class="card-text">{{ video.description|truncatechars:100 }}</p>
+                    <a href="{% url 'video-detail' video.id %}" class="btn btn-sm btn-outline-primary">
+                        View Details
+                    </a>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">
+                        Uploaded by {{ video.uploader.username }} | {{ video.upload_date|date:"M d, Y" }}
+                    </small>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info">No videos available yet.</div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

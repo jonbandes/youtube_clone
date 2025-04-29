@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-rg8b4g_^paz@s@$hxvm6*c$cpjft*ui++ykn@j21e$q1o-m$t#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [youtube-clone-5ea7.onrender.com]
 
 
 # Application definition
